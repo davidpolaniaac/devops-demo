@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 6.1.0
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker build -t devops .
+
+test:
+  override:
+    - docker run devops npm test
