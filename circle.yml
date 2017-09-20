@@ -11,3 +11,9 @@ dependencies:
 test:
   override:
     - docker run devops npm test
+
+deployment:
+  qa:
+    branch: /feature_.*/
+    commands:
+      - sh deployments/qa.sh
