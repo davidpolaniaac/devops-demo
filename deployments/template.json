@@ -1,0 +1,26 @@
+{
+  "variables": {
+    "build_number": "{{env `CIRCLE_BUILD_NUM`}}"
+  },
+  "builders": [
+    {
+      "type": "digitalocean",
+      "image": "coreos-stable",
+      "region": "nyc3",
+      "size": "512mb",
+      "snapshot_name": "devops-demo-{{user `build_number`}}",
+      "ssh_username": "core"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "git clone https://github.com/davidpolaniaac/devops-demo.git",
+        "cd devops-demo",
+        "docker build -t devops .",
+        "docker run -d -p 3000:3000 devops"
+      ]
+    }
+  ]
+}
